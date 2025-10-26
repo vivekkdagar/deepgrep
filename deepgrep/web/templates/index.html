@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DeepGrep - Text Search Tool</title>
+  <meta name="description" content="Search text using regex patterns or semantic similarity. Elegant interface powered by Flask + Tailwind." />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-900 font-inter antialiased">
+  <main class="max-w-4xl mx-auto px-6 py-10 space-y-10">
+    <!-- HEADER -->
+    <header class="text-center space-y-3">
+      <div class="flex justify-center items-center gap-3">
+        <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+          <span class="text-2xl">🔍</span>
+        </div>
+        <h1 class="text-4xl font-bold tracking-tight">DeepGrep</h1>
+      </div>
+      <p class="text-gray-500">Smart text search — regex or semantic, all in one place</p>
+    </header>
+
+    <!-- SEARCH PANEL -->
+    <section class="bg-white shadow-md rounded-xl border border-gray-200 p-6 space-y-5">
+      <!-- MODE BUTTONS -->
+      <div class="flex justify-center gap-3">
+        <button id="regexBtn"
+          class="mode-btn active flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 font-medium transition-all duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+            d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          Regex
+        </button>
+
+        <button id="semanticBtn"
+          class="mode-btn flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 font-medium transition-all duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 4v16m8-8H4"/></svg>
+          Semantic
+        </button>
+      </div>
+
+      <!-- TEXT AREA -->
+      <div class="space-y-1">
+        <label class="text-sm font-semibold uppercase tracking-wide" for="inputText">Enter Text</label>
+        <textarea id="inputText" rows="6"
+          class="w-full border border-gray-300 rounded-md p-3 text-base focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none transition"
+          placeholder="Paste or type your text here..."></textarea>
+      </div>
+
+      <!-- PATTERN INPUT -->
+      <div class="space-y-1">
+        <label class="text-sm font-semibold uppercase tracking-wide" for="pattern">Pattern / Keyword</label>
+        <input id="pattern" type="text"
+          class="w-full border border-gray-300 rounded-md p-3 text-base focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+          placeholder="e.g. \\d+ or happy">
+      </div>
+
+      <!-- RUN BUTTON -->
+      <button id="runBtn"
+        class="w-full bg-blue-600 text-white font-semibold py-3 rounded-md hover:bg-blue-700 transform transition-all duration-300 hover:-translate-y-0.5 shadow">
+        Run Search
+      </button>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="resultBox" class="hidden bg-white shadow-md rounded-xl border border-gray-200 p-6 space-y-3 animate-fade-in">
+      <h2 class="text-xl font-semibold">Results</h2>
+      <pre id="resultText" class="bg-gray-50 border border-gray-200 p-4 rounded-md font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></pre>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="historyBox" class="hidden bg-white shadow-md rounded-xl border border-gray-200 p-6 space-y-3 animate-fade-in">
+      <h2 class="text-xl font-semibold flex items-center gap-2">Search History</h2>
+      <div id="historyContent" class="space-y-2 text-sm text-gray-600"></div>
+    </section>
+  </main>
+</body>
+</html>

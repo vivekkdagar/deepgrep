@@ -1,0 +1,5 @@
+pytest
+spacy
+nltk
+flask-cors
+flask
